@@ -12,7 +12,7 @@ using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
 
-namespace ConsoleApplication2
+namespace FriendsAreRequired
 {
     [MyEntityComponentDescriptor(typeof(Sandbox.Common.ObjectBuilders.MyObjectBuilder_Beacon))]
     public class MyBeaconLogic : MyGameLogicComponent
