@@ -1,29 +1,30 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Sandbox.ModAPI;
+﻿using Sandbox.ModAPI;
 using Sandbox.Common;
 using Sandbox.Common.ObjectBuilders;
+using Sandbox.Common.Components;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Sandbox.Game.Entities;
 using VRage.Game;
 using VRage.Game.Components;
-using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
 
-namespace FriendsAreRequired
+namespace ConsoleApplication2
 {
-    [MyEntityComponentDescriptor(typeof(Sandbox.Common.ObjectBuilders.MyObjectBuilder_Beacon))]
-    public class MyBeaconLogic : MyGameLogicComponent
+    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_Thrust), "LargeBlockSmallThrust2")]
+    public class LargeThrusterLogic : MyGameLogicComponent
     {
-        MyObjectBuilder_EntityBase m_objectBuilder = null;
+        Sandbox.Common.ObjectBuilders.MyObjectBuilder_EntityBase m_objectBuilder = null;
         private bool m_greeted;
+        private float current_thrust;
+
         public override void Close()
         {
         }
 
-        public override void Init(VRage.ObjectBuilders.MyObjectBuilder_EntityBase objectBuilder)
+        public override void Init(Sandbox.Common.ObjectBuilders.MyObjectBuilder_EntityBase objectBuilder)
         {
             Entity.NeedsUpdate |= MyEntityUpdateEnum.EACH_100TH_FRAME;
             m_objectBuilder = objectBuilder;
@@ -55,15 +56,24 @@ namespace FriendsAreRequired
 
         public override void UpdateBeforeSimulation100()
         {
+            current_thrust = (Entity as Sandbox.ModAPI.Ingame.IMyThrust).CurrentThrust;
+            (Entity as Sandbox.ModAPI.Ingame.IMyThrust).ThrustOverride = 50;
             if (MyAPIGateway.Session.Player == null)
             {
                 return;
             }
+
             if ((MyAPIGateway.Session.Player.GetPosition() - Entity.GetPosition()).Length() < 10)
             {
                 if (!m_greeted)
                 {
-                    MyAPIGateway.Utilities.ShowNotification(string.Format("Waddup {0}", (Entity as Sandbox.ModAPI.Ingame.IMyTerminalBlock).DisplayNameText), 10000, MyFontEnum.Red);
+                    MyAPIGateway.Utilities.ShowNotification((Entity as Sandbox.ModAPI.Ingame.IMyThrust).DisplayNameText,
+                        100000);
+                    /*MyAPIGateway.Utilities.ShowNotification(
+                        string.Format("Waddup {0}", (Entity as Sandbox.ModAPI.Ingame.IMyThrust).DisplayNameText),
+                        10000, MyFontEnum.Red);*/
+                    MyAPIGateway.Utilities.ShowNotification(string.Format(current_thrust.ToString()),
+                        disappearTimeMs: 10000);
                     m_greeted = true;
                 }
             }

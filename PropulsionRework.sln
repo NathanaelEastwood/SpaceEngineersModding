@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FriendsAreRequired", "FriendsAreRequired\FriendsAreRequired.csproj", "{C49B78D7-E13A-4A25-9628-CABFA8882423}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropulsionRework", "PropulsionRework\PropulsionRework.csproj", "{C49B78D7-E13A-4A25-9628-CABFA8882423}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

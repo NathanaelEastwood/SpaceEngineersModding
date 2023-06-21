@@ -12,7 +12,7 @@ namespace Digi.Examples
 
     // You can also override vanilla ones, to play around with this without needing custom models you can use "terminal" and aim at any terminal panel on any block.
 
-    [MyUseObject("control_panel")]
+    [MyUseObject("")]
     public class Example_CustomUseObject : MyUseObjectBase
     {
         // Probably determines what actions to show as hints? Experiment!
